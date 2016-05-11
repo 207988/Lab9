@@ -1,7 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
-	
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.porto.controller.PortoController">
-	<!-- TODO Add Nodes -->
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.porto.controller.PortoController">
+   <top>
+      <Label text="Lab9" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <VBox spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER">
+               <children>
+                  <Label text="Seleziona gli autori: " />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="15.0">
+               <children>
+                  <ComboBox fx:id="BoxAuth1" prefWidth="150.0" />
+                  <ComboBox fx:id="BoxAuth2" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="15.0">
+               <children>
+                  <Button fx:id="btnCoautori" mnemonicParsing="false" onAction="#doCoautori" text="Visualizza coautori" />
+                  <Button fx:id="btnCluster" mnemonicParsing="false" onAction="#doCluster" text="Visualizza Cluster" />
+                  <Button fx:id="btnArticoli" mnemonicParsing="false" onAction="#doArticoli" text="Visualizza Articoli" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <TextArea fx:id="txtOutput" />
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
 </BorderPane>

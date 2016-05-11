@@ -53,7 +53,7 @@ public class PortoController {
 
     @FXML
     void doCluster(ActionEvent event) {
-
+    	model.trovaCluster();
     }
 
     @FXML
@@ -72,6 +72,6 @@ public class PortoController {
         assert btnCluster != null : "fx:id=\"btnCluster\" was not injected: check your FXML file 'Porto.fxml'.";
         assert btnArticoli != null : "fx:id=\"btnArticoli\" was not injected: check your FXML file 'Porto.fxml'.";
         assert txtOutput != null : "fx:id=\"txtOutput\" was not injected: check your FXML file 'Porto.fxml'.";
-
+        txtOutput.setEditable(false);
     }
 }

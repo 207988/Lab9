@@ -12,6 +12,7 @@ import org.jgrapht.alg.HamiltonianCycle;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.Multigraph;
 import org.jgrapht.traverse.DepthFirstIterator;
+import org.jgrapht.traverse.GraphIterator;
 
 import com.mchange.v2.c3p0.stmt.GooGooStatementCache;
 
@@ -20,6 +21,7 @@ import it.polito.tdp.porto.db.AutoreDAO;
 import it.polito.tdp.porto.db.ProprietaDAO;
 
 public class PortoModel {
+	private boolean debug=true;
 	private Map<Integer,Autore> elencoAutori=new HashMap<Integer,Autore>();
 	private Map<Long,Articolo>elencoArticoli=new HashMap<Long,Articolo>();
 	private List<Proprieta>elencoProprieta;
@@ -74,17 +76,18 @@ public class PortoModel {
 				}
 			}
 		}
-		
-		System.out.println("Vertici: "+graph.vertexSet().size());
-		System.out.println("Archi: "+graph.edgeSet().size());
+		if(debug){
+			System.out.println("Vertici: "+graph.vertexSet().size());
+			System.out.println("Archi: "+graph.edgeSet().size());
+		}
 		
 		
 	}
 	
 	public List<Autore>getAutori(){
-		List<Autore> temp= new ArrayList<Autore>(elencoAutori.values());
+		List<Autore> temp= new ArrayList<Autore>(elencoAutori.values());		
 		Collections.sort(temp);
-		
+		temp.add(0, new Autore(-1,"SELEZIONE","VUOTA"));		
 		return temp;
 	}
 	
@@ -92,17 +95,32 @@ public class PortoModel {
 		List<Autore>elencoAutori=new ArrayList<Autore>();
 		for(Autore a:Graphs.neighborListOf(graph, aut))
 			elencoAutori.add(a);
-		System.out.println(elencoAutori.size());
+		if(debug)
+			System.out.println(elencoAutori.size());
 		return elencoAutori;
 	}
 	
 	public String trovaCluster(){
 		String s="";
 		int nCluster=0;
+		//grafo di appoggio
 		Multigraph<Autore,DefaultEdge> graphTemp=graph;
-		GraphIterator<String,DefaultEdge> visit;
-		while(graphTemp.vertexSet()!=null){
-			visit=new DepthFirstIterator<Autore,DefaultEdge>(graphTemp,graphTemp.vertexSet().);
+		GraphIterator<Autore,DefaultEdge> visit;
+		
+		for(Autore a:elencoAutori.values()){
+			if(graphTemp.containsVertex(a)){
+				visit=new DepthFirstIterator<Autore,DefaultEdge>(graphTemp,a);
+				s+="Cluster "+ ++nCluster+"\n\n";
+				while(visit.hasNext()){
+					Autore temp=visit.next();
+					s+=temp.toString()+"\n";
+					graphTemp.removeVertex(temp);
+				}
+				s+="-----------\n";
+				if(debug)
+					System.out.println(graphTemp.vertexSet().size());
+				
+			}
 		}
 		
 		

@@ -20,6 +20,8 @@ public class PortoController {
 		model.caricaGrafo();
 		BoxAuth1.getItems().addAll(model.getAutori());
 		BoxAuth2.getItems().addAll(model.getAutori());
+		BoxAuth1.setValue(new Autore(-1,"SELEZIONE","VUOTA"));
+		BoxAuth2.setValue(new Autore(-1,"SELEZIONE","VUOTA"));
 		
 	}
     @FXML
@@ -53,15 +55,29 @@ public class PortoController {
 
     @FXML
     void doCluster(ActionEvent event) {
-    	model.trovaCluster();
+    	txtOutput.clear();
+    	if((BoxAuth1.getValue().getId()==-1)&&(BoxAuth2.getValue().getId()==-1)){
+	    	String s=model.trovaCluster();
+	    	txtOutput.setText(s);
+    	}
+    	else
+    		txtOutput.setText("ERRORE: HAI SELEZIONATO 1 O PIU' AUTORI");
     }
 
     @FXML
     void doCoautori(ActionEvent event) {
-    	String s="";
-    	for(Autore a:model.visualizzaCoautori(BoxAuth1.getValue()))
-    		s+=(a.toString()+"\n");
-    	txtOutput.setText(s);
+    	txtOutput.clear();
+    	if((BoxAuth1.getValue().getId()==-1&&BoxAuth2.getValue().getId()!=-1)||(BoxAuth1.getValue().getId()!=-1&&BoxAuth2.getValue().getId()==-1)){
+	    	String s="";
+	    	Autore aut=BoxAuth1.getValue();
+	    	if(aut.getId()==-1)
+	    		aut=BoxAuth2.getValue();
+	    	for(Autore a:model.visualizzaCoautori(aut))
+	    		s+=(a.toString()+"\n");
+	    	txtOutput.setText(s);
+    	}
+    	else
+    		txtOutput.setText("ERRORE: HAI SELEZIONATO 2 O 0 AUTORI ");
     }
 
     @FXML

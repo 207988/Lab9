@@ -50,7 +50,13 @@ public class PortoController {
 
     @FXML
     void doArticoli(ActionEvent event) {
-
+    	Autore a1=BoxAuth1.getValue();
+    	Autore a2=BoxAuth2.getValue();
+    	txtOutput.clear();
+    	String s=model.trovaArticoliComune(a1, a2);
+    	txtOutput.setText(s);
+    	
+    	
     }
 
     @FXML

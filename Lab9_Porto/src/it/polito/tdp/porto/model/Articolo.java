@@ -31,6 +31,13 @@ public class Articolo {
 	public List<Autore> getElencoAutori() {
 		return elencoAutori;
 	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.id+"-"+this.titolo;
+	}
+	
+	
 	
 	
 
